@@ -40,3 +40,9 @@ python hrosad_offline.py \
        --outliers_fraction 0.1 \
        --random_seed 10 
  ```
+
+### Help
+```
+python rhrad_offline.py -h
+python hrosad_offline.py -h
+```
