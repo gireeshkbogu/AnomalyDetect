@@ -1,5 +1,5 @@
 # AnomalyDetect
-Detects anomalous heart rate from a smartwatch data.
+Detects anomalous heart rate from smartwatch data.
 
 
 #### Install required packages
