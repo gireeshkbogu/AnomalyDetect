@@ -1,7 +1,7 @@
 # AnomalyDetect
 Detects anomalous heart rate from smartwatch data.
 
-### RHRAD (Resting Heart Rate) Anomaly Detector
+### RHR-AD (Resting Heart Rate) Anomaly Detector
 
 Command 
 ```
@@ -18,7 +18,7 @@ python rhrad_offline.py \
  ```
  
 
-### HROSAD (Heart Rate Over Steps) Anomaly Detector
+### HROS-AD (Heart Rate Over Steps) Anomaly Detector
 
 Command
 ```
