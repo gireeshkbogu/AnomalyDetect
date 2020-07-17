@@ -8,7 +8,7 @@ Detects anomalous heart rate from smartwatch data.
 pip install -r requirements.txt
 ```
 
-#### Data
+#### Data (Wearable data (Heart rate, steps and sleep) from 31 FitBit users with COVID-19 diagnosis)
 
 ```
 https://storage.googleapis.com/gbsc-gcp-project-ipop_public/COVID-19/COVID-19-Wearables.zip
