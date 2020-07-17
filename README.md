@@ -14,7 +14,7 @@ pip install -r requirements.txt
 https://storage.googleapis.com/gbsc-gcp-project-ipop_public/COVID-19/COVID-19-Wearables.zip
 ```
 
-#### Example
+#### Examples
 
 ```
 python scripts/rhrad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AHYIJDV_steps.csv
