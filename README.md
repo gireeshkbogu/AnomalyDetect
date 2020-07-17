@@ -20,7 +20,7 @@ Command
 ```
 python rhrad_offline.py \
        --heart_rate hr.csv \
-       --steps hr.csv \
+       --steps steps.csv \
        --myphd_id id_offline \
        --figure id_offine.pdf \
        --anomalies id_offline_anomalies.csv \
@@ -37,7 +37,7 @@ Command
 ```
 python hrosad_offline.py \
        --heart_rate hr.csv \
-       --steps hr.csv \
+       --steps steps.csv \
        --myphd_id id_offline \
        --figure id_offine.pdf \
        --anomalies id_offline_anomalies.csv \
