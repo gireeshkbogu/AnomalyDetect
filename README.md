@@ -14,9 +14,17 @@ pip install -r requirements.txt
 https://storage.googleapis.com/gbsc-gcp-project-ipop_public/COVID-19/COVID-19-Wearables.zip
 ```
 
+#### Simple commands
+
+```
+python scripts/rhrad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AHYIJDV_steps.csv
+python scripts/hrosad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AHYIJDV_steps.csv
+```
+
+
 ### RHR-AD (Resting Heart Rate) Anomaly Detector
 
-Command 
+Full command 
 ```
 python rhrad_offline.py \
        --heart_rate hr.csv \
@@ -33,7 +41,7 @@ python rhrad_offline.py \
 
 ### HROS-AD (Heart Rate Over Steps) Anomaly Detector
 
-Command
+Full command 
 ```
 python hrosad_offline.py \
        --heart_rate hr.csv \
