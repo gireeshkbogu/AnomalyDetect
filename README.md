@@ -23,7 +23,7 @@ python scripts/rhrad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AH
 python scripts/hrosad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AHYIJDV_steps.csv
 ```
 
-### Offline Models --------------------------------------------------------------------------
+## Offline Models 
 
 #### RHR-AD (Resting Heart Rate) Anomaly Detector
 
@@ -58,7 +58,7 @@ python hrosad_offline.py \
        --random_seed 10 
  ```
 
-### Online Models --------------------------------------------------------------------------
+## Online Models
 
 In progress .......
 
