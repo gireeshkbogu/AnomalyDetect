@@ -17,6 +17,7 @@ https://storage.googleapis.com/gbsc-gcp-project-ipop_public/COVID-19/COVID-19-We
 #### Examples
 
 ```
+# check results folder for the output
 python scripts/rhrad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AHYIJDV_steps.csv
 python scripts/hrosad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/AHYIJDV_steps.csv
 ```
