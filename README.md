@@ -8,6 +8,12 @@ Detects anomalous heart rate from smartwatch data.
 pip install -r requirements.txt
 ```
 
+#### Data
+
+```
+https://storage.googleapis.com/gbsc-gcp-project-ipop_public/COVID-19/COVID-19-Wearables.zip
+```
+
 ### RHR-AD (Resting Heart Rate) Anomaly Detector
 
 Command 
