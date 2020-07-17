@@ -1,6 +1,13 @@
 # AnomalyDetect
 Detects anomalous heart rate from smartwatch data.
 
+
+#### Install required packages
+
+```
+pip install -r requirements.txt
+```
+
 ### RHR-AD (Resting Heart Rate) Anomaly Detector
 
 Command 
