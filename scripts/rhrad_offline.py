@@ -12,7 +12,7 @@
 #       --anomalies id_offline_anomalies.csv \
 #       --symptom_date 2020-01-30 \
 #       --diagnosis_date 2020-01-31 \
-#       --outliers_fraction 0.1 
+#       --outliers_fraction 0.1 \
 #       --random_seed 10 
 
 import warnings
