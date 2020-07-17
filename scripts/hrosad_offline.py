@@ -163,7 +163,7 @@ class HROSAD_offline:
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
                 ax.set_title(myphd_id,fontweight="bold", size=50) # Title
-                ax.set_ylabel('Std. RHR\n', fontsize = 50) # Y label
+                ax.set_ylabel('Std. HROS\n', fontsize = 50) # Y label
                 ax.axvline(pd.to_datetime(symptom_date), color='red', zorder=1, linestyle='--', lw=8) # Symptom date 
                 ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=8) # Diagnosis date
                 ax.tick_params(axis='both', which='major', labelsize=60)
@@ -194,7 +194,7 @@ class HROSAD_offline:
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
                 ax.set_title(myphd_id,fontweight="bold", size=50) # Title
-                ax.set_ylabel('Std. RHR\n', fontsize = 50) # Y label
+                ax.set_ylabel('Std. HROS\n', fontsize = 50) # Y label
                 #ax.axvline(pd.to_datetime(symptom_date), color='red', zorder=1, linestyle='--', lw=8) # Symptom date 
                 #ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=8) # Diagnosis date 
                 ax.tick_params(axis='both', which='minor', labelsize=60)
