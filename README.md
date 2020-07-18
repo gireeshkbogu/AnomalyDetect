@@ -11,7 +11,6 @@ pip install -r requirements.txt
 #### Wearable data (Heart rate, steps and sleep) from FitBit users with a COVID-19 diagnosis
 
 ```
-Data from 29 users - AnomalyDetect/data/
 For full set (31 users): https://storage.googleapis.com/gbsc-gcp-project-ipop_public/COVID-19/COVID-19-Wearables.zip
 ```
 
