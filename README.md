@@ -25,7 +25,7 @@ python scripts/hrosad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/A
 
 ## Offline Models 
 
-#### RHR-AD (Resting Heart Rate) Anomaly Detector
+#### RHR-AD (Resting Heart Rate) Offline Anomaly Detector
 
 Full command 
 ```
@@ -42,7 +42,7 @@ python rhrad_offline.py \
  ```
  
 
-#### HROS-AD (Heart Rate Over Steps) Anomaly Detector
+#### HROS-AD (Heart Rate Over Steps) Offline Anomaly Detector
 
 Full command 
 ```
