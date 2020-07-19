@@ -1,4 +1,4 @@
-#### HROS Offline Anomaly Detecttion
+#### HROS Offline Anomaly Detection
 #### Author: Gireesh K. Bogu
 #### Email: gbogu17@stanford.edu
 #### Date: 2020 July
