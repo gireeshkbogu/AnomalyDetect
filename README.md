@@ -25,6 +25,8 @@ python scripts/hrosad_offline.py --heart_rate data/AHYIJDV_hr.csv --steps data/A
 
 ## Offline Models 
 
+Offline models use all data to find anomalies.
+
 #### RHR-AD (Resting Heart Rate) Offline Anomaly Detector
 
 Full command 
