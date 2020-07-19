@@ -1,5 +1,5 @@
 # AnomalyDetect
-Current version of `AnomalyDetect` detects anomalous heart rate from smartwatch data in an offline mode (given all data). `AnomalyDetect` can be used with either RHR (Resting Heart rate) or HROS (Heart Rate Over Steps) as an input. This method can be applied to any smartwatch data like FitBit, Apple, Garmin and Empatica given that they have continuous heart rate and steps data. Offline models current running time is about 1-2 minutes per user.
+The current version of `AnomalyDetect` detects anomalous heart rate from smartwatch data in an offline mode (given all data). `AnomalyDetect` can be used with either RHR (Resting Heart rate) or HROS (Heart Rate Over Steps) as an input. This method can be applied to any smartwatch data like FitBit, Apple, Garmin and Empatica given that they have continuous heart rate and steps data. 
 
 
 #### Install required packages
