@@ -1,6 +1,7 @@
 # HROS Offline Anomaly Detection
 # Author: Gireesh K. Bogu
 # Email: gbogu17@stanford.edu
+# Location: Dept.of Genetics, Stanford University
 # Date: July 18th 2020
 
 # simple command
