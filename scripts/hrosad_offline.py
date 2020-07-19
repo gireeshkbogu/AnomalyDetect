@@ -1,7 +1,7 @@
-#### HROS Offline Anomaly Detection
-#### Author: Gireesh K. Bogu
-#### Email: gbogu17@stanford.edu
-#### Date: 2020 July
+# HROS Offline Anomaly Detection
+# Author: Gireesh K. Bogu
+# Email: gbogu17@stanford.edu
+# Date: July 18th 2020
 
 # simple command
 # python hrosad_offline.py --heart_rate hr.csv --steps steps.csv
