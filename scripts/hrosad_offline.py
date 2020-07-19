@@ -1,4 +1,9 @@
- # simple command
+#### HROS Offline Anomaly Detecttion
+#### Author: Gireesh K. Bogu
+#### Email: gbogu17@stanford.edu
+#### Date: 2020 July
+
+# simple command
 # python hrosad_offline.py --heart_rate hr.csv --steps steps.csv
 
 # full command
