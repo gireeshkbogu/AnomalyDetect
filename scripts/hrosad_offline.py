@@ -163,7 +163,7 @@ class HROSAD_offline:
                 fig, ax = plt.subplots(1, figsize=(80,15))
                 a = data.loc[data['anomaly'] == -1, ('index', 'heartrate')] #anomaly
                 b = a[(a['heartrate']> 0)]
-                ax.bar(data['index'], data['heartrate'], linestyle='-',color='midnightblue' ,lw=6, width=0.3)
+                ax.bar(data['index'], data['heartrate'], linestyle='-',color='midnightblue' ,lw=6, width=0.01)
                 ax.scatter(b['index'],b['heartrate'], color='red', label='Anomaly', s=500)
                 # We change the fontsize of minor ticks label
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
@@ -195,7 +195,7 @@ class HROSAD_offline:
                 fig, ax = plt.subplots(1, figsize=(80,15))
                 a = data.loc[data['anomaly'] == -1, ('index', 'heartrate')] #anomaly
                 b = a[(a['heartrate']> 0)]
-                ax.bar(data['index'], data['heartrate'], linestyle='-',color='midnightblue' ,lw=6, width=0.1)
+                ax.bar(data['index'], data['heartrate'], linestyle='-',color='midnightblue' ,lw=6, width=0.01)
                 ax.scatter(b['index'],b['heartrate'], color='red', label='Anomaly', s=1000)
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
