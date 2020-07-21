@@ -8,19 +8,19 @@
 # python hrosad_online.py --heart_rate hr.csv --steps steps.csv
 
 ## full command
-# python hrosad_online.py --heart_rate ../ah_data/june23_data/glnvueefgb1x_fitbit_oldProtocol_hr.csv --steps ../ah_data/june23_data/glnvueefgb1x_fitbit_oldProtocol_steps.csv --myphd_id glnvueefgb1x_online --figure glnvueefgb1x_online.pdf --anomalies glnvueefgb1x_online_anomalies.csv --symptom_date 2020-03-31 --diagnosis_date 2020-05-13 --outliers_fraction 0.1 --random_seed 10 --baseline_window 744 --sliding_window 1
+# python hrosad_online.py --heart_rate id_hr.csv --steps id_steps.csv --myphd_id id_online --figure id_online.pdf --anomalies id_online_anomalies.csv --symptom_date 2020-03-01 --diagnosis_date 2020-03-02 --outliers_fraction 0.1 --random_seed 10 --baseline_window 744 --sliding_window 1
 
-#python hrosad_online.py --heart_rate ../ah_data/june23_data/glnvueefgb1x_fitbit_oldProtocol_hr.csv \
-#	--steps ../ah_data/june23_data/glnvueefgb1x_fitbit_oldProtocol_steps.csv \
-#	--myphd_id glnvueefgb1x_online \
-#	--figure glnvueefgb1x_online.pdf \
-#	--anomalies glnvueefgb1x_online_anomalies.csv \
-#	--symptom_date 2020-03-31 \
-#	--diagnosis_date 2020-05-13 \
+#python hrosad_online.py --heart_rate id_hr.csv \
+#	--steps id_steps.csv \
+#	--myphd_id id_online \
+#	--figure id_online.pdf \
+#	--anomalies id_online_anomalies.csv \
+#	--symptom_date 2020-03-01 \
+#	--diagnosis_date 2020-03-02 \
 #	--outliers_fraction 0.1 \
 #	--random_seed 10 \
-#   --baseline_window 744 \
-#   --sliding_window 1
+#  --baseline_window 744 \
+#  --sliding_window 1
 
 
 import warnings
