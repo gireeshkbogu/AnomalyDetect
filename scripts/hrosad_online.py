@@ -1,3 +1,9 @@
+# HROS Online Anomaly Detection
+# Author: Gireesh K. Bogu
+# Email: gbogu17@stanford.edu
+# Location: Dept.of Genetics, Stanford University
+# Date: July 18th 2020
+
 ## simple command
 # python hrosad_online.py --heart_rate hr.csv --steps steps.csv
 
