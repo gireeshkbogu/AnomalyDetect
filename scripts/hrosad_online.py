@@ -244,7 +244,8 @@ class HROSAD_online:
                 ax.set_title(myphd_id,fontweight="bold", size=50) # Title
                 ax.set_ylabel('Std. RHR\n', fontsize = 50) # Y label
                 #ax.axvline(pd.to_datetime(symptom_date), color='red', zorder=1, linestyle='--', lw=8) # Symptom date 
-                #ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=8) # Diagnosis date                ax.tick_params(axis='both', which='major', labelsize=60)
+                #ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=8) # Diagnosis date                
+                ax.tick_params(axis='both', which='major', labelsize=60)
                 ax.tick_params(axis='both', which='minor', labelsize=60)
                 ax.xaxis.set_major_locator(mdates.DayLocator(interval=7))
                 ax.grid(zorder=0)
@@ -273,4 +274,3 @@ data_test = []
 model.online_anomaly_detection(data_seasnCorec, baseline_window, sliding_window)
 data = model.merge_test_results(data_test)
 model.visualize(data, symptom_date, diagnosis_date)
-
