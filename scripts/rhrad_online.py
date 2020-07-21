@@ -211,7 +211,7 @@ class RHRAD_online:
                 a = data.loc[data['anomaly'] == -1, ('index', 'heartrate')] #anomaly
                 b = a[(a['heartrate']> 0)]
                 ax.bar(data['index'], data['heartrate'], linestyle='-',color='midnightblue' ,lw=6, width=0.01)
-                ax.scatter(b['index'],b['heartrate'], color='red', label='Anomaly', s=500)
+                ax.scatter(b['index'],b['heartrate'], color='red', label='Anomaly', s=1000)
                 # We change the fontsize of minor ticks label
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
@@ -243,7 +243,7 @@ class RHRAD_online:
                 a = data.loc[data['anomaly'] == -1, ('index', 'heartrate')] #anomaly
                 b = a[(a['heartrate']> 0)]
                 ax.bar(data['index'], data['heartrate'], linestyle='-',color='midnightblue' ,lw=6, width=0.01)
-                ax.scatter(b['index'],b['heartrate'], color='red', label='Anomaly', s=500)
+                ax.scatter(b['index'],b['heartrate'], color='red', label='Anomaly', s=1000)
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
                 ax.set_title(myphd_id,fontweight="bold", size=50) # Title
