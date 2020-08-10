@@ -59,14 +59,24 @@ python hrosad_offline.py \
        --outliers_fraction 0.1 \
        --random_seed 10 
  ```
+ 
+ 
 
 ## Online Model
 
 Online model uses RHR data and splits it into training data by taking the first 744 hours as a baseline (1 month) and testing data by taking the next 1 hour data, and uses a sliding window of length 1 hour to find anomalies in the test data. If the anomalies occur frequently with in 12 hours, it will automatically create warning (yellow) and serious (red) alerts at every 6 A.M and 6 P.M.
 
-In progress .......
-
 Full command
 ```
-python rhrad_online.py -h
+# python rhrad_online_alerts.py --heart_rate pbb_fitbit_oldProtocol_hr.csv \
+# --steps pbb_fitbit_oldProtocol_steps.csv \
+# --myphd_id pbb_RHR_online \
+# --figure1 pbb_RHR_online_anomalies.pdf \
+# --anomalies pbb_RHR_online_anomalies.csv \
+# --symptom_date 2020-01-10 --diagnosis_date 2020-01-11 \
+# --outliers_fraction 0.1 \
+# --random_seed 10  \
+# --baseline_window 744 --sliding_window 1 
+# --alerts pbb_RHR_online_alerts.csv \
+# --figure2 pbb_RHR_online_alerts.pdf
 ```
