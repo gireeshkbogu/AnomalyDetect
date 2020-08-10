@@ -62,7 +62,7 @@ python hrosad_offline.py \
 
 ## Online Model
 
-Online model uses RHR data and split it into train by taking the first 744 hours as a baseline (1 month) and test by taking the next 1 hour data, and uses a sliding window of length 1 hour to find anomalies in the test data. If the anomalies occur at regular intervals with in 12 hours, it will sutomatically create warning and red alerts at every 6 A.M and 6 P.M.
+Online model uses RHR data and split it into train by taking the first 744 hours as a baseline (1 month) and test by taking the next 1 hour data, and uses a sliding window of length 1 hour to find anomalies in the test data. If the anomalies occur frequently with in 12 hours, it will automatically create warning (yellow) and serious (red) alerts at every 6 A.M and 6 P.M.
 
 In progress .......
 
