@@ -1,8 +1,10 @@
-# RHR Online Anomaly Detection
-# Author: Gireesh K. Bogu
-# Email: gbogu17@stanford.edu
-# Location: Dept.of Genetics, Stanford University
-# Date: Aug 10th 2020
+# RHR Online Anomaly Detection & Alert Monitoring
+######################################################
+# Author: Gireesh K. Bogu                            #
+# Email: gbogu17@stanford.edu                        #
+# Location: Dept.of Genetics, Stanford University    #
+# Date: Aug 10th 2020                                #
+######################################################
 
 ## simple command
 # python rhrad_online_alerts.py --heart_rate hr.csv --steps steps.csv
