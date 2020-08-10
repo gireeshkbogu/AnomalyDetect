@@ -62,7 +62,7 @@ python hrosad_offline.py \
 
 ## Online Model
 
-Online models  split the data into train by taking the first 744 hours as a baseline (1 month) and test by taking the next 1 hour data, and uses a sliding window of length 1 hour to find anomalies in the test data.
+Online model uses RHR data and split it into train by taking the first 744 hours as a baseline (1 month) and test by taking the next 1 hour data, and uses a sliding window of length 1 hour to find anomalies in the test data.
 
 In progress .......
 
