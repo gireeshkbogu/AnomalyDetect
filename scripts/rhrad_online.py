@@ -233,8 +233,8 @@ class RHRAD_online:
                 return 'RED'
             elif alert['alerts'] >=4:
                 return 'YELLOW'
-            #else:
-                #return 'UNDEFINED'
+            else:
+                return 'UNDEFINED'
 
         anomalies.columns = ['datetime', 'std.rhr', 'name']
         anomalies = anomalies[['datetime']]
@@ -254,7 +254,7 @@ class RHRAD_online:
         # visualize
         df = alerts
         df = df[df.alerts> 0]
-        colors = {'RED': 'r', 'YELLOW': 'yellow'}
+        colors = {'RED': 'r', 'YELLOW': 'yellow', 'UNDEFINED':'grey'}
         ax = df['alerts'].plot(kind='bar', color=[colors[i] for i in df['alert_type']])
         ax.set_ylabel('No.of Alerts \n', fontsize = 14) # Y label
         plt.xticks(fontsize=3, rotation=90)
@@ -295,7 +295,7 @@ class RHRAD_online:
                
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {0:'','RED': 'r', 'YELLOW': 'yellow'}
+                colors = {0:'','RED': 'r', 'YELLOW': 'yellow', 'UNDEFINED':''}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
@@ -328,7 +328,7 @@ class RHRAD_online:
 
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {0:'','RED': 'r', 'YELLOW': 'yellow'}
+                colors = {0:'','RED': 'r', 'YELLOW': 'yellow', 'UNDEFINED':''}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
@@ -371,3 +371,4 @@ positive_anomalies = model.positive_anomalies(results)
 alerts = model.create_alerts(positive_anomalies)
 test_alerts = model.merge_alerts(results, alerts)
 model.visualize(results, positive_anomalies, test_alerts, symptom_date, diagnosis_date)
+
