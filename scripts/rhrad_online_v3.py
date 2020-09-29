@@ -6,23 +6,24 @@
 # Date: Sep29th 2020                                #
 ######################################################
 
+
 ## simple command
 # python rhrad_online_alerts.py --heart_rate hr.csv --steps steps.csv
 
 ## full command
-#  python rhrad_online_alerts.py --heart_rate ../ah_data/june23_data/pbbqjw489c7b_fitbit_oldProtocol_hr.csv --steps ../ah_data/june23_data/pbbqjw489c7b_fitbit_oldProtocol_steps.csv --myphd_id pbbqjw489c7b_RHR_online --figure1 pbbqjw489c7b_RHR_online_anomalies.pdf --anomalies pbbqjw489c7b_RHR_online_anomalies.csv --symptom_date 2010-01-10 --diagnosis_date 2010-01-11 --outliers_fraction 0.1 --random_seed 10  --baseline_window 744 --sliding_window 1 --alerts pbbqjw489c7b_RHR_online_alerts.csv --figure2 pbbqjw489c7b_RHR_online_alerts.pdf
+#  python rhrad_online_alerts.py --heart_rate pbb_fitbit_oldProtocol_hr.csv --steps pbb_fitbit_oldProtocol_steps.csv --myphd_id pbb_RHR_online --figure1 pbb_RHR_online_anomalies.pdf --anomalies pbb_RHR_online_anomalies.csv --symptom_date 2020-01-10 --diagnosis_date 2020-01-11 --outliers_fraction 0.1 --random_seed 10  --baseline_window 744 --sliding_window 1 --alerts pbb_RHR_online_alerts.csv --figure2 pbb_RHR_online_alerts.pdf
 
-# python rhrad_online_alerts.py --heart_rate ../ah_data/june23_data/pbbqjw489c7b_fitbit_oldProtocol_hr.csv \
-# --steps ../ah_data/june23_data/pbbqjw489c7b_fitbit_oldProtocol_steps.csv \
-# --myphd_id pbbqjw489c7b_RHR_online \
-# --figure1 pbbqjw489c7b_RHR_online_anomalies.pdf \
-# --anomalies pbbqjw489c7b_RHR_online_anomalies.csv \
-# --symptom_date 2010-01-10 --diagnosis_date 2010-01-11 \
+# python rhrad_online_alerts.py --heart_rate pbb_fitbit_oldProtocol_hr.csv \
+# --steps pbb_fitbit_oldProtocol_steps.csv \
+# --myphd_id pbb_RHR_online \
+# --figure1 pbb_RHR_online_anomalies.pdf \
+# --anomalies pbb_RHR_online_anomalies.csv \
+# --symptom_date 2020-01-10 --diagnosis_date 2020-01-11 \
 # --outliers_fraction 0.1 \
 # --random_seed 10  \
 # --baseline_window 744 --sliding_window 1 
-# --alerts pbbqjw489c7b_RHR_online_alerts.csv \
-# --figure2 pbbqjw489c7b_RHR_online_alerts.pdf
+# --alerts pbb_RHR_online_alerts.csv \
+# --figure2 pbb_RHR_online_alerts.pdf
 
 
 import warnings
