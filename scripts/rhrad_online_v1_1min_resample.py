@@ -251,7 +251,7 @@ class RHRAD_online:
         # apply alert_types function
         alerts['alert_type'] = alerts.apply(alert_types, axis=1)
 
-        # seelct RED and YELLOW alerts
+        # select RED and YELLOW alerts
         alerts[alerts['alert_type'].str.contains("RED|YELLOW")]
 
         # save alerts
