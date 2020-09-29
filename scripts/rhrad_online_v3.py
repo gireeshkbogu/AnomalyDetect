@@ -3,7 +3,7 @@
 # Author: Gireesh K. Bogu                            #
 # Email: gbogu17@stanford.edu                        #
 # Location: Dept.of Genetics, Stanford University    #
-# Date: Aug 10th 2020                                #
+# Date: Sep 29th 2020                                #
 ######################################################
 
 
@@ -287,8 +287,6 @@ class RHRAD_online:
         plt.xticks(fontsize=4, rotation=90)
         plt.tight_layout()
         ax.figure.savefig(myphd_id_figure2, bbox_inches = "tight")
-        
-
         return daily_alerts
 
 
