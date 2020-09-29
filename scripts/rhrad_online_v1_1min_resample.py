@@ -237,7 +237,7 @@ class RHRAD_online:
             elif alert['alerts'] >=1: #>=4 (previously)
                 return 'YELLOW'
             else:
-                return 'UNDEFINED'
+                return 'GREEN'
 
         anomalies.columns = ['datetime', 'std.rhr', 'name']
         anomalies = anomalies[['datetime']]
@@ -250,9 +250,6 @@ class RHRAD_online:
 
         # apply alert_types function
         alerts['alert_type'] = alerts.apply(alert_types, axis=1)
-
-        # select RED and YELLOW alerts
-        alerts[alerts['alert_type'].str.contains("RED|YELLOW")]
 
         # save alerts
         alerts.to_csv(myphd_id_alerts, mode='a', header=True) 
