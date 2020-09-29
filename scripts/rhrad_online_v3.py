@@ -3,7 +3,7 @@
 # Author: Gireesh K. Bogu                            #
 # Email: gbogu17@stanford.edu                        #
 # Location: Dept.of Genetics, Stanford University    #
-# Date: Sep29th 2020                                #
+# Date: Aug 10th 2020                                #
 ######################################################
 
 
@@ -257,7 +257,6 @@ class RHRAD_online:
         # save alerts
         #alerts.to_csv(myphd_id_alerts, mode='a', header=True) 
 
-    
 
         # summarize hourly alerts to daily alerts
         daily_alerts = alerts_reset.resample('12H', on='datetime', base=6, label='right').count()
@@ -279,10 +278,6 @@ class RHRAD_online:
         daily_alerts.to_csv(myphd_id_alerts, mode='a', header=True) 
 
         
-
-
-
-
         # visualize hourly alerts
         colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
         ax = alerts['alerts'].plot(kind='bar', color=[colors[i] for i in alerts['alert_type']],figsize=(20,4))
