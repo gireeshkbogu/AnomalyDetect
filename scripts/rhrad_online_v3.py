@@ -275,7 +275,7 @@ class RHRAD_online:
         # apply alert_types function
         daily_alerts['alert_type'] = daily_alerts.apply(alert_types, axis=1)
         #print(daily_alerts)
-        daily_alerts.to_csv(myphd_id_alerts, mode='a', header=True) 
+        daily_alerts.to_csv(myphd_id_alerts,  header=True) 
 
         
         # visualize hourly alerts
