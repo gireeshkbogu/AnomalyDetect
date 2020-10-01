@@ -3,7 +3,7 @@
 # Author: Gireesh K. Bogu                            #
 # Email: gbogu17@stanford.edu                        #
 # Location: Dept.of Genetics, Stanford University    #
-# Date: Sep 29th 2020                                #
+# Date: Oct 1st 2020                                #
 ######################################################
 
 
@@ -225,7 +225,7 @@ class RHRAD_online:
 
     # Alerts  ------------------------------------------------------
 
-    def create_alerts(self, anomalies):
+    def create_alerts(self, anomalies, data):
         """
         # creates alerts at every 12 hours and cumulates them at 6AM and 6 PM.
         # visualise alerts
@@ -274,19 +274,38 @@ class RHRAD_online:
 
         # apply alert_types function
         daily_alerts['alert_type'] = daily_alerts.apply(alert_types, axis=1)
-        #print(daily_alerts)
+        
+
+        # merge missing 'datetime' with 'alerts' as zero aka GREEN
+        data1 = data[['index']]
+        data1['alert_type'] = 0
+        data1 = data1.rename(columns={"index": "datetime"})
+        data1['datetime'] = pd.to_datetime(data1['datetime'], errors='coerce')
+        data1 = data1.resample('12H', on='datetime', base=6, label='right').count()
+        data1 = data1.drop(data1.columns[[0,1]], axis=1)
+        data1 = data1.reset_index()
+        data1['alert_type'] = 0
+
+        data3 = pd.merge(data1, daily_alerts, on='datetime', how='outer')
+        data4 = data3[['datetime', 'alert_type_y']]
+        data4 = data4.rename(columns={ "alert_type_y": "alert_type"})
+        daily_alerts = data4.fillna("GREEN")
+        daily_alerts = daily_alerts.set_index('datetime')
+        daily_alerts = daily_alerts.sort_index()
+        daily_alerts = daily_alerts.reset_index()
+
         daily_alerts.to_csv(myphd_id_alerts,  header=True) 
 
         
         # visualize hourly alerts
-        colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
-        ax = alerts['alerts'].plot(kind='bar', color=[colors[i] for i in alerts['alert_type']],figsize=(20,4))
-        ax.set_ylabel('No.of Alerts \n', fontsize = 14) # Y label
+        #colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
+        #ax = alerts['alerts'].plot(kind='bar', color=[colors[i] for i in alerts['alert_type']],figsize=(20,4))
+        #ax.set_ylabel('No.of Alerts \n', fontsize = 14) # Y label
         #ax.axvline(pd.to_datetime(symptom_date), color='grey', zorder=1, linestyle='--', marker="v" ) # Symptom date 
         #ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', marker="v") # Diagnosis date
-        plt.xticks(fontsize=4, rotation=90)
-        plt.tight_layout()
-        ax.figure.savefig(myphd_id_figure2, bbox_inches = "tight")
+        #plt.xticks(fontsize=4, rotation=90)
+        #plt.tight_layout()
+        #ax.figure.savefig(myphd_id_figure2, bbox_inches = "tight")
         return daily_alerts
 
 
@@ -297,14 +316,14 @@ class RHRAD_online:
         Merge  alerts  with their corresponding index and other features 
 
         """
+
         data_test = data_test.reset_index()
         data_test['index'] = pd.to_datetime(data_test['index'], errors='coerce')
-        test_alerts = alerts.reset_index()
+        test_alerts = alerts
         test_alerts = test_alerts.rename(columns={"datetime": "index"})
         test_alerts['index'] = pd.to_datetime(test_alerts['index'], errors='coerce')
-        data_test['index'] = pd.to_datetime(data_test['index'], errors='coerce')
-        test_alerts = data_test.merge(test_alerts, how='outer', on=['index'])
-        test_alerts.fillna(0, inplace=True)
+        test_alerts = pd.merge(data_test, test_alerts, how='outer', on='index')
+        #test_alerts.fillna(0, inplace=True)
 
         return test_alerts
 
@@ -324,7 +343,7 @@ class RHRAD_online:
                
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {0:'','RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
+                colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'none'}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
@@ -357,7 +376,7 @@ class RHRAD_online:
 
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {0:'','RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
+                colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'none'}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
@@ -397,6 +416,6 @@ data_test = []
 model.online_anomaly_detection(data_seasnCorec, baseline_window, sliding_window)
 results = model.merge_test_results(data_test)
 positive_anomalies = model.positive_anomalies(results)
-alerts = model.create_alerts(positive_anomalies)
+alerts = model.create_alerts(positive_anomalies, results)
 test_alerts = model.merge_alerts(results, alerts)
 model.visualize(results, positive_anomalies, test_alerts, symptom_date, diagnosis_date)
