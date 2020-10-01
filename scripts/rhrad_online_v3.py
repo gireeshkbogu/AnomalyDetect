@@ -219,7 +219,7 @@ class RHRAD_online:
         positive_anomalies = a[(a['heartrate']> 0)]
         # Anomaly results
         positive_anomalies['Anomalies'] = myphd_id
-        positive_anomalies.to_csv(myphd_id_anomalies, mode='a', header=False) 
+        positive_anomalies.to_csv(myphd_id_anomalies, header=False) 
         return positive_anomalies
 
 
