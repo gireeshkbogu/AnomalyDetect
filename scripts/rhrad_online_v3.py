@@ -3,7 +3,7 @@
 # Author: Gireesh K. Bogu                            #
 # Email: gbogu17@stanford.edu                        #
 # Location: Dept.of Genetics, Stanford University    #
-# Date: Oct 1st 2020                                #
+# Date: Oct 3 2020                                #
 ######################################################
 
 
@@ -39,7 +39,6 @@ import seaborn as sns
 from statsmodels.tsa.seasonal import seasonal_decompose
 from sklearn.preprocessing import StandardScaler
 from sklearn.covariance import EllipticEnvelope
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, recall_score
 
 
 ####################################
@@ -219,7 +218,8 @@ class RHRAD_online:
         positive_anomalies = a[(a['heartrate']> 0)]
         # Anomaly results
         positive_anomalies['Anomalies'] = myphd_id
-        positive_anomalies.to_csv(myphd_id_anomalies, header=False) 
+        positive_anomalies.columns = ['datetime', 'std.rhr', 'name']
+        positive_anomalies.to_csv(myphd_id_anomalies, header=True) 
         return positive_anomalies
 
 
@@ -242,7 +242,7 @@ class RHRAD_online:
                 return 'GREEN'
 
         # summarize hourly alerts
-        anomalies.columns = ['datetime', 'std.rhr', 'name']
+        #anomalies.columns = ['datetime', 'std.rhr', 'name']
         anomalies = anomalies[['datetime']]
         anomalies['datetime'] = pd.to_datetime(anomalies['datetime'], errors='coerce')
         anomalies['alerts'] = 1
@@ -323,8 +323,8 @@ class RHRAD_online:
         test_alerts = test_alerts.rename(columns={"datetime": "index"})
         test_alerts['index'] = pd.to_datetime(test_alerts['index'], errors='coerce')
         test_alerts = pd.merge(data_test, test_alerts, how='outer', on='index')
-        #test_alerts.fillna(0, inplace=True)
-
+        test_alerts.fillna(0, inplace=True)
+        #print(test_alerts)
         return test_alerts
 
     
@@ -343,7 +343,7 @@ class RHRAD_online:
                
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'none'}
+                colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'lightgreen'}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
@@ -376,7 +376,7 @@ class RHRAD_online:
 
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'none'}
+                colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'lightgreen'}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
