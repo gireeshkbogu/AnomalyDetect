@@ -296,6 +296,10 @@ class RHRAD_online:
 
         # merge alerts with main data and pass 'NA' when there is a missing day instead of 'GREEN'
         df_hr = pd.read_csv(fitbit_oldProtocol_hr)
+
+        df_hr['datetime'] = pd.to_datetime(df_hr['datetime'], errors='coerce')
+        df_hr = df_hr.resample('12H', on='datetime', base=6, label='right').mean()
+        df_hr = df_hr.reset_index()
         df_hr = df_hr.set_index('datetime')
         df_hr.index.name = None
         df_hr.index = pd.to_datetime(df_hr.index)
