@@ -302,7 +302,7 @@ class RHRAD_online:
         
         df3 = pd.merge(df_hr, daily_alerts, how='outer', left_index=True, right_index=True)
         df3 = df3[df3.alert_type.notnull()]
-        df3.loc[df3.heartrate.isna(), 'alert_type'] = np.nan
+        df3.loc[df3.heartrate.isna(), 'alert_type'] = pd.NA
 
 
         daily_alerts = df3.drop('heartrate', axis=1)
