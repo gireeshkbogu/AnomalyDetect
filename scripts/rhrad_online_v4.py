@@ -308,7 +308,7 @@ class RHRAD_online:
         daily_alerts = df3.drop('heartrate', axis=1)
         daily_alerts = daily_alerts.reset_index()
         daily_alerts = daily_alerts.rename(columns={"index": "datetime"})
-        daily_alerts.to_csv(myphd_id_alerts,  header=True) 
+        daily_alerts.to_csv(myphd_id_alerts,  na_rep='NA', header=True) 
 
         
         # visualize hourly alerts
