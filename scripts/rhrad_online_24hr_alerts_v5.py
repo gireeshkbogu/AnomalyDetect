@@ -227,7 +227,7 @@ class RHRAD_online:
 
     def create_alerts(self, anomalies, data, fitbit_oldProtocol_hr):
         """
-        # creates alerts at every 12 hours and cumulates them at 6AM and 6 PM.
+        # creates alerts at every 24 hours and send at 9PM.
         # visualise alerts
 
         """
@@ -249,7 +249,7 @@ class RHRAD_online:
         anomalies = anomalies.set_index('datetime')
         anomalies = anomalies[~anomalies.index.duplicated(keep='first')]
         anomalies = anomalies.sort_index()
-        alerts = anomalies.groupby(pd.Grouper(freq = '24H',  base=6)).cumsum()
+        alerts = anomalies.groupby(pd.Grouper(freq = '24H',  base=21)).cumsum()
         # apply alert_types function
         alerts['alert_type'] = alerts.apply(alert_types, axis=1)
         alerts_reset = alerts.reset_index()
@@ -259,7 +259,7 @@ class RHRAD_online:
 
 
         # summarize hourly alerts to daily alerts
-        daily_alerts = alerts_reset.resample('24H', on='datetime', base=6, label='right').count()
+        daily_alerts = alerts_reset.resample('24H', on='datetime', base=21, label='right').count()
         daily_alerts = daily_alerts.drop(['datetime'], axis=1)
         #print(daily_alerts)
 
@@ -281,7 +281,7 @@ class RHRAD_online:
         data1['alert_type'] = 0
         data1 = data1.rename(columns={"index": "datetime"})
         data1['datetime'] = pd.to_datetime(data1['datetime'], errors='coerce')
-        data1 = data1.resample('24H', on='datetime', base=6, label='right').count()
+        data1 = data1.resample('24H', on='datetime', base=21, label='right').count()
         data1 = data1.drop(data1.columns[[0,1]], axis=1)
         data1 = data1.reset_index()
         data1['alert_type'] = 0
@@ -298,7 +298,7 @@ class RHRAD_online:
         df_hr = pd.read_csv(fitbit_oldProtocol_hr)
 
         df_hr['datetime'] = pd.to_datetime(df_hr['datetime'], errors='coerce')
-        df_hr = df_hr.resample('24H', on='datetime', base=6, label='right').mean()
+        df_hr = df_hr.resample('24H', on='datetime', base=21, label='right').mean()
         df_hr = df_hr.reset_index()
         df_hr = df_hr.set_index('datetime')
         df_hr.index.name = None
