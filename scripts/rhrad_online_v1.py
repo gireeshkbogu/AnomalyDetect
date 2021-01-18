@@ -136,7 +136,7 @@ class RHRAD_online:
         sdSteps_decomposition = seasonal_decompose(sdSteps, model='additive', freq=1)
         sdHR_decomp = pd.DataFrame(sdHR_decomposition.resid + sdHR_decomposition.trend)
         sdHR_decomp.rename(columns={sdHR_decomp.columns[0]:'heartrate'}, inplace=True)
-        sdSteps_decomp = pd.DataFrame(sdSteps_decomposition.resid + sdHR_decomposition.trend)
+        sdSteps_decomp = pd.DataFrame(sdSteps_decomposition.resid + sdSteps_decomposition.trend)
         sdSteps_decomp.rename(columns={sdSteps_decomp.columns[0]:'steps_window_12'}, inplace=True)
         frames = [sdHR_decomp, sdSteps_decomp]
         data = pd.concat(frames, axis=1)
