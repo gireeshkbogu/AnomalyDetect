@@ -6,6 +6,7 @@
 # Date: Oct 29 2020                                #
 ######################################################
 
+# uses raw hr and steps files. New steps format (without zeroes). Takes <2 steps for RHR.
 
 ## simple command
 # python rhrad_online_alerts.py --heart_rate hr.csv --steps steps.csv
