@@ -116,7 +116,7 @@ class RHRAD_online:
         print("Data size (in miutes) before removing missing data")
         print(df1.shape)
         ax = df1.plot(figsize=(20,4), title=myphd_id)
-        ax.figure.savefig(myphd_id+'_data.pdf')
+        ax.figure.savefig(myphd_id+'_data.png')
         #print(df1)
 
 
