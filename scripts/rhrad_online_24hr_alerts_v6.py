@@ -468,5 +468,4 @@ positive_anomalies = model.positive_anomalies(results)
 alerts = model.create_alerts(positive_anomalies, results, fitbit_oldProtocol_hr)
 test_alerts = model.merge_alerts(results, alerts)
 model.visualize(results, positive_anomalies, test_alerts, symptom_date, diagnosis_date)
-
 print("Finished!")
