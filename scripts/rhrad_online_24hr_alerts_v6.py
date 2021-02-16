@@ -6,7 +6,6 @@
 # Date: Oct 29 2020                                #
 ######################################################
 
-# uses raw hr and steps files. New steps format (without zeroes). Takes <2 steps for RHR.
 
 ## simple command
 # python rhrad_online_alerts.py --heart_rate hr.csv --steps steps.csv
@@ -113,7 +112,7 @@ class RHRAD_online:
 
         df1 = df1.resample('1min').mean()
         print(myphd_id)
-        print("Data size (in miutes) before removing missinng data")
+        print("Data size (in miutes) before removing missing data")
         print(df1.shape)
         ax = df1.plot(figsize=(20,4), title=myphd_id)
         ax.figure.savefig(myphd_id+'_data.pdf')
@@ -122,7 +121,7 @@ class RHRAD_online:
 
         df1 = df1.dropna(how='any')
         df1 = df1.loc[df1['heartrate']!=0]
-        print("Data size (in miutes) after removing missinng data")
+        print("Data size (in miutes) after removing missing data")
         print(df1.shape)
         #print(df1)
         
@@ -398,7 +397,7 @@ class RHRAD_online:
                     v = colors.get(test_alerts['alert_type'][i])
                     ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=4, color=v)
                 
-                #ax.scatter(positive_anomalies['index'],positive_anomalies['heartrate'], color='red', label='Anomaly', s=500)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=100)
 
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
@@ -431,7 +430,7 @@ class RHRAD_online:
                     v = colors.get(test_alerts['alert_type'][i])
                     ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=4, color=v)
  
-                #ax.scatter(positive_anomalies['index'],positive_anomalies['heartrate'], color='red', label='Anomaly', s=500)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=100)
 
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
