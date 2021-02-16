@@ -6,6 +6,7 @@
 # Date: Oct 29 2020                                #
 ######################################################
 
+# uses raw heart rate and steps data (this stpes data doesn't have zeroes and need to innfer from hr datetime stamp)
 
 ## simple command
 # python rhrad_online_alerts.py --heart_rate hr.csv --steps steps.csv
