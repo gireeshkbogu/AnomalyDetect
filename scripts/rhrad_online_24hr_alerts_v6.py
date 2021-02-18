@@ -127,8 +127,12 @@ class RHRAD_online:
         #print(df1)
         
         # define RHR as the HR measurements recorded when there were less than two steps taken during a rolling time window of the preceding 12 minutes (including the current minute)
+        df1['steps'] = df1['steps'].apply(np.int64)
         df1['steps_window_12'] = df1['steps'].rolling(12).sum()
-        df1 = df1.loc[(df1['steps_window_12'] < 2 )]
+        df1 = df1.loc[(df1['steps_window_12'] == 0 )]
+        
+        print(df1['heartrate'].describe())
+        print(df1['steps_window_12'].describe())
 
         # impute missing data 
         #df1 = df1.resample('1min').mean()
