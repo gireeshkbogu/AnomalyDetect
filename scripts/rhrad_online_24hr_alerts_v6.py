@@ -1,3 +1,4 @@
+
 # RHR Online Anomaly Detection & Alert Monitoring
 ######################################################
 # Author: Gireesh K. Bogu                            #
@@ -33,6 +34,8 @@ import sys
 import argparse
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 #%matplotlib inline
@@ -472,4 +475,5 @@ positive_anomalies = model.positive_anomalies(results)
 alerts = model.create_alerts(positive_anomalies, results, fitbit_oldProtocol_hr)
 test_alerts = model.merge_alerts(results, alerts)
 model.visualize(results, positive_anomalies, test_alerts, symptom_date, diagnosis_date)
+print("Finished!") ositive_anomalies, test_alerts, symptom_date, diagnosis_date)
 print("Finished!")
