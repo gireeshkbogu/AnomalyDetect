@@ -53,7 +53,9 @@ parser.add_argument('--anomalies', metavar='', default = 'myphd_id_anomalies.csv
 parser.add_argument('--figure1', metavar='',  default = 'myphd_id_anomalies.pdf', help='save predicted anomalies as a PDF file')
 parser.add_argument('--symptom_date', metavar='', default = 'NaN', help = 'symptom date with y-m-d format')
 parser.add_argument('--diagnosis_date', metavar='', default = 'NaN',  help='diagnosis date with y-m-d format')
-#parser.add_argument('--outliers_fraction', metavar='', type=float, default=0.1, help='fraction of outliers or anomalies')
+parser.add_argument('--outlier_start', metavar='', type=float, default=0.001, help='lowest outlier threshold')
+parser.add_argument('--outlier_stop', metavar='', type=float, default=0.5, help='highest outlier threshold')
+parser.add_argument('--outlier_num', metavar='', type=int, default=5, help='number of outlier thresholds in specific range')
 parser.add_argument('--random_seed', metavar='', type=int, default=10, help='random seed')
 parser.add_argument('--baseline_window', metavar='',type=int, default=744, help='baseline window is used for training (in hours)')
 parser.add_argument('--sliding_window', metavar='',type=int, default=1, help='sliding window is used to slide the testing process each hour')
@@ -72,7 +74,9 @@ myphd_id_figure1 = args.figure1
 symptom_date = args.symptom_date
 diagnosis_date = args.diagnosis_date
 RANDOM_SEED = args.random_seed
-#outliers_fraction =  args.outliers_fraction 
+start = args.outlier_start
+stop = args.outlier_stop
+number = args.outlier_num
 baseline_window = args.baseline_window
 sliding_window = args.sliding_window
 myphd_id_alerts = args.alerts
@@ -430,15 +434,20 @@ class RHRAD_online:
             else:
                 numYellow +=1
 
-        alerts_dict = {'Type of Alert': ['Green', 'Yellow',  'Red'],                    
-                        'Number': [numGreen, numYellow, numRed]} 
+        alerts_dict = {'alert_type': ['Green', 'Yellow',  'Red'],                    
+                        'number': [numGreen, numYellow, numRed]} 
         alerts_df = pd.DataFrame(alerts_dict)
         alerts_df.to_csv(str(k) + "num_alerts.csv")
+        return alerts_df
+
+    
+        
+
 
 
 model = RHRAD_online()
-
-lst = np.linspace(0.001, 0.5, num=10)
+lst = np.linspace(start, stop, num=number)
+alerts_combined = pd.DataFrame()
 for k in range(len(lst)):
     df1 = model.resting_heart_rate(fitbit_oldProtocol_hr, fitbit_oldProtocol_steps)
     df2 = model.pre_processing(df1)
@@ -453,7 +462,48 @@ for k in range(len(lst)):
     results = model.merge_test_results(data_test)
     positive_anomalies = model.positive_anomalies(results, k)
     alerts = model.create_alerts(positive_anomalies, results, fitbit_oldProtocol_hr, k)
-    model.numAlerts(alerts, k)
+    num_alerts = model.numAlerts(alerts, k)
+    alerts_combined = alerts_combined.append(num_alerts)
     test_alerts = model.merge_alerts(results, alerts)
     model.visualize(results, positive_anomalies, test_alerts, symptom_date, diagnosis_date, k)
   
+alerts_combined.to_csv("combined.csv")
+
+labels = np.linspace(start, stop, num=number)
+for i in range(len(labels)):
+    labels[i] = round(labels[i], 2)
+  
+df1 = pd.read_csv("combined.csv")
+
+green = []
+for i in range(0, len(df1), 3):
+    green.append(df1.iloc[i, 2])
+green = np.array(green)
+
+yellow = []
+for i in range(1, len(df1), 3):
+    yellow.append(df1.iloc[i, 2])
+yellow = np.array(yellow)
+
+red = []
+for i in range(2, len(df1), 3):
+    red.append(df1.iloc[i, 2])
+red = np.array(red)
+
+x = np.arange(len(labels))
+
+
+
+fig,ax = plt.subplots()
+ax.bar(x - 0.25, green, width=0.25, color='g', label='Green')
+ax.bar(x + 0.0, yellow, width=0.25, color='y', label='Yellow')
+ax.bar(x + 0.25, red, width=0.25, color='r', label='Red')
+
+ax.set_ylabel('Number of Alerts')
+ax.set_xlabel('Outlier Threshold')
+ax.set_title('Outlier Thresholds')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+fig.tight_layout()
+fig.savefig("outlier_thresholds.pdf")
