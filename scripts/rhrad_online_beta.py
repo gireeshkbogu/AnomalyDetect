@@ -53,15 +53,15 @@ parser.add_argument('--anomalies', metavar='', default = 'myphd_id_anomalies.csv
 parser.add_argument('--figure1', metavar='',  default = 'myphd_id_anomalies.pdf', help='save predicted anomalies as a PDF file')
 parser.add_argument('--symptom_date', metavar='', default = 'NaN', help = 'symptom date with y-m-d format')
 parser.add_argument('--diagnosis_date', metavar='', default = 'NaN',  help='diagnosis date with y-m-d format')
-parser.add_argument('--outlier_start', metavar='', type=float, default=0.001, help='lowest outlier threshold')
-parser.add_argument('--outlier_stop', metavar='', type=float, default=0.5, help='highest outlier threshold')
-parser.add_argument('--outlier_num', metavar='', type=int, default=5, help='number of outlier thresholds in specific range')
+parser.add_argument('--outlier_start', metavar='', type=float, default=0.1, help='lowest outlier threshold')
+parser.add_argument('--outlier_stop', metavar='', type=float, default=0.1, help='highest outlier threshold')
+parser.add_argument('--outlier_num', metavar='', type=int, default=1, help='number of outlier thresholds in specific range')
 parser.add_argument('--random_seed', metavar='', type=int, default=10, help='random seed')
 parser.add_argument('--baseline_window', metavar='',type=int, default=744, help='baseline window is used for training (in hours)')
 parser.add_argument('--sliding_window', metavar='',type=int, default=1, help='sliding window is used to slide the testing process each hour')
 parser.add_argument('--alerts', metavar='', default = 'myphd_id_alerts.csv', help='save predicted anomalies as a CSV file')
 parser.add_argument('--figure2', metavar='',  default = 'myphd_id_alerts.pdf', help='save predicted anomalies as a PDF file')
-
+parser.add_argument('--training', metavar='',type=str, default="reg", help='input weekly for shorter training and reg for normal training')
 args = parser.parse_args()
 
 
@@ -81,7 +81,7 @@ baseline_window = args.baseline_window
 sliding_window = args.sliding_window
 myphd_id_alerts = args.alerts
 myphd_id_figure2 = args.figure2
-
+mode = args.training
 
 ####################################
 
@@ -153,42 +153,92 @@ class RHRAD_online:
 
     # Train model and predict anomalies ------------------------------------------------------
 
-    def online_anomaly_detection(self, data_seasnCorec, baseline_window, sliding_window, outliers_fraction):  
-        for i in range(baseline_window, len(data_seasnCorec)):
-            data_train_w = data_seasnCorec[i-baseline_window:i] 
-            # train data normalization ------------------------------------------------------
-            data_train_w += 0.1
-            standardizer = StandardScaler().fit(data_train_w.values)
-            data_train_scaled = standardizer.transform(data_train_w.values)
-            data_train_scaled_features = pd.DataFrame(data_train_scaled, index=data_train_w.index, columns=data_train_w.columns)
-            data = pd.DataFrame(data_train_scaled_features)
-            data_1 = pd.DataFrame(data).fillna(0)
-            data_1['steps'] = '0'
-            data_1['steps_window_12'] = (data_1['steps']) 
-            data_train_w = data_1
-            data_train.append(data_train_w)
+    def online_anomaly_detection(self, data_seasnCorec, baseline_window, sliding_window, outliers_fraction):
+        if (mode == 'reg'):  
+            for i in range(baseline_window, len(data_seasnCorec)):
+                data_train_w = data_seasnCorec[i-baseline_window:i] 
+                # train data normalization ------------------------------------------------------
+                data_train_w += 0.1
+                standardizer = StandardScaler().fit(data_train_w.values)
+                data_train_scaled = standardizer.transform(data_train_w.values)
+                data_train_scaled_features = pd.DataFrame(data_train_scaled, index=data_train_w.index, columns=data_train_w.columns)
+                data = pd.DataFrame(data_train_scaled_features)
+                data_1 = pd.DataFrame(data).fillna(0)
+                data_1['steps'] = '0'
+                data_1['steps_window_12'] = (data_1['steps']) 
+                data_train_w = data_1
+                data_train.append(data_train_w)
 
-            data_test_w = data_seasnCorec[i:i+sliding_window] 
-            # test data normalization ------------------------------------------------------
-            data_test_w += 0.1
-            data_test_scaled = standardizer.transform(data_test_w.values)
-            data_scaled_features = pd.DataFrame(data_test_scaled, index=data_test_w.index, columns=data_test_w.columns)
-            data = pd.DataFrame(data_scaled_features)
-            data_1 = pd.DataFrame(data).fillna(0)
-            data_1['steps'] = '0'
-            data_1['steps_window_12'] = (data_1['steps']) 
-            data_test_w = data_1
-            data_test.append(data_test_w)
+                data_test_w = data_seasnCorec[i:i+sliding_window] 
+                # test data normalization ------------------------------------------------------
+                data_test_w += 0.1
+                data_test_scaled = standardizer.transform(data_test_w.values)
+                data_scaled_features = pd.DataFrame(data_test_scaled, index=data_test_w.index, columns=data_test_w.columns)
+                data = pd.DataFrame(data_scaled_features)
+                data_1 = pd.DataFrame(data).fillna(0)
+                data_1['steps'] = '0'
+                data_1['steps_window_12'] = (data_1['steps']) 
+                data_test_w = data_1
+                data_test.append(data_test_w)
 
-            # fit the model  ------------------------------------------------------
-            model = EllipticEnvelope(random_state=RANDOM_SEED,
-                                    contamination=outliers_fraction,
-                                    support_fraction=0.7).fit(data_train_w)
-            # predict the test set
-            preds = model.predict(data_test_w)
-            #preds = preds.rename(lambda x: 'anomaly' if x == 0 else x, axis=1)
-            dfs.append(preds)
+                # fit the model  ------------------------------------------------------
+                model = EllipticEnvelope(random_state=RANDOM_SEED,
+                                        contamination=outliers_fraction,
+                                        support_fraction=0.7).fit(data_train_w)
+                # predict the test set
+                preds = model.predict(data_test_w)
+                #preds = preds.rename(lambda x: 'anomaly' if x == 0 else x, axis=1)
+                dfs.append(preds)
+        else:
+            for i in range(baseline_window, len(data_seasnCorec)):             
+                if ( (i - baseline_window) // 24 % 7 == 0):
+                    recent_index = i
+                    data_train_w = data_seasnCorec[i-baseline_window:i]        
+                    data_train_w += 0.1
+                    standardizer = StandardScaler().fit(data_train_w.values)
+                    data_train_scaled = standardizer.transform(data_train_w.values)
+                    data_train_scaled_features = pd.DataFrame(data_train_scaled, index=data_train_w.index, columns=data_train_w.columns)
+                    data = pd.DataFrame(data_train_scaled_features)
+                    data_1 = pd.DataFrame(data).fillna(0)
+                    data_1['steps'] = '0'
+                    data_1['steps_window_12'] = (data_1['steps']) 
+                    data_train_w = data_1
+                    data_train.append(data_train_w)   
             
+                else:
+                    data_train_w = data_seasnCorec[recent_index-baseline_window:recent_index]        
+                    data_train_w += 0.1
+                    standardizer = StandardScaler().fit(data_train_w.values)
+                    data_train_scaled = standardizer.transform(data_train_w.values)
+                    data_train_scaled_features = pd.DataFrame(data_train_scaled, index=data_train_w.index, columns=data_train_w.columns)
+                    data = pd.DataFrame(data_train_scaled_features)
+                    data_1 = pd.DataFrame(data).fillna(0)
+                    data_1['steps'] = '0'
+                    data_1['steps_window_12'] = (data_1['steps']) 
+                    data_train_w = data_1
+                    data_train.append(data_train_w)
+            
+            
+                data_test_w = data_seasnCorec[i:i+sliding_window] 
+                # test data normalization ------------------------------------------------------
+                data_test_w += 0.1
+                data_test_scaled = standardizer.transform(data_test_w.values)
+                data_scaled_features = pd.DataFrame(data_test_scaled, index=data_test_w.index, columns=data_test_w.columns)
+                data = pd.DataFrame(data_scaled_features)
+                data_1 = pd.DataFrame(data).fillna(0)
+                data_1['steps'] = '0'
+                data_1['steps_window_12'] = (data_1['steps']) 
+                data_test_w = data_1
+                data_test.append(data_test_w)
+
+                model = EllipticEnvelope(random_state=RANDOM_SEED,
+                                        contamination=outliers_fraction,
+                                        support_fraction=0.7).fit(data_train_w)
+                # predict the test set
+                preds = model.predict(data_test_w)
+                #preds = preds.rename(lambda x: 'anomaly' if x == 0 else x, axis=1)
+                dfs.append(preds)
+    
             
 
     # Merge predictions ------------------------------------------------------
