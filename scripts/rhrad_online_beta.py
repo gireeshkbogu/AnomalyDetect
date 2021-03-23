@@ -61,7 +61,7 @@ parser.add_argument('--baseline_window', metavar='',type=int, default=744, help=
 parser.add_argument('--sliding_window', metavar='',type=int, default=1, help='sliding window is used to slide the testing process each hour')
 parser.add_argument('--alerts', metavar='', default = 'myphd_id_alerts.csv', help='save predicted anomalies as a CSV file')
 parser.add_argument('--figure2', metavar='',  default = 'myphd_id_alerts.pdf', help='save predicted anomalies as a PDF file')
-parser.add_argument('--training', metavar='',type=str, default="reg", help='input weekly for shorter training and reg for normal training')
+parser.add_argument('--training', metavar='',type=str, default="daily", help='input weekly for shorter training and daily for normal training')
 args = parser.parse_args()
 
 
@@ -88,6 +88,7 @@ mode = args.training
 class RHRAD_online:
 
     # Infer resting heart rate ------------------------------------------------------
+    
 
     def resting_heart_rate(self, heartrate, steps):
         """
@@ -154,7 +155,7 @@ class RHRAD_online:
     # Train model and predict anomalies ------------------------------------------------------
 
     def online_anomaly_detection(self, data_seasnCorec, baseline_window, sliding_window, outliers_fraction):
-        if (mode == 'reg'):  
+        if (mode == 'daily'):  
             for i in range(baseline_window, len(data_seasnCorec)):
                 data_train_w = data_seasnCorec[i-baseline_window:i] 
                 # train data normalization ------------------------------------------------------
@@ -270,7 +271,7 @@ class RHRAD_online:
         # Anomaly results
         positive_anomalies['Anomalies'] = myphd_id
         positive_anomalies.columns = ['datetime', 'std.rhr', 'name']
-        positive_anomalies.to_csv(str(k) + myphd_id_anomalies, header=True) 
+        positive_anomalies.to_csv("_" + str(lst[k]) + "_" + myphd_id_anomalies, header=True) 
         return positive_anomalies
 
 
@@ -363,7 +364,7 @@ class RHRAD_online:
         daily_alerts = df3.drop('heartrate', axis=1)
         daily_alerts = daily_alerts.reset_index()
         daily_alerts = daily_alerts.rename(columns={"index": "datetime"})
-        daily_alerts.to_csv(str(k) + myphd_id_alerts,  na_rep='NA', header=True) 
+        daily_alerts.to_csv("_" + str(lst[k]) + "_" + myphd_id_alerts,  na_rep='NA', header=True) 
 
         
         # visualize hourly alerts
@@ -374,7 +375,7 @@ class RHRAD_online:
         #ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', marker="v") # Diagnosis date
         #plt.xticks(fontsize=4, rotation=90)
         #plt.tight_layout()
-        #ax.figure.savefig(myphd_id_figure2, bbox_inches = "tight")
+        #ax.figure.savefig(myphd_id_figure2, bbox_inches = "tight") 
         return daily_alerts
 
 
@@ -435,7 +436,7 @@ class RHRAD_online:
                 plt.yticks(fontsize=50)
                 ax.patch.set_facecolor('white')
                 fig.patch.set_facecolor('white')   
-                figure = fig.savefig(str(k) + myphd_id_figure1, bbox_inches='tight')                             
+                figure = fig.savefig("_" + str(lst[k]) + "_" + myphd_id_figure1, bbox_inches='tight')                             
                 return figure
 
         except:
@@ -466,7 +467,7 @@ class RHRAD_online:
                 plt.yticks(fontsize=50)
                 ax.patch.set_facecolor('white')
                 fig.patch.set_facecolor('white')     
-                figure = fig.savefig(str(k) + myphd_id_figure1, bbox_inches='tight')       
+                figure = fig.savefig("_" + str(lst[k]) + "_" +  myphd_id_figure1, bbox_inches='tight')       
                 return figure
 
 
@@ -487,7 +488,7 @@ class RHRAD_online:
         alerts_dict = {'alert_type': ['Green', 'Yellow',  'Red'],                    
                         'number': [numGreen, numYellow, numRed]} 
         alerts_df = pd.DataFrame(alerts_dict)
-        alerts_df.to_csv(str(k) + "num_alerts.csv")
+        alerts_df.to_csv("_" + str(lst[k]) + "_" + "num_alerts.csv")
         return alerts_df
 
     
