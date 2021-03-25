@@ -1,4 +1,3 @@
-
 # RHR Online Anomaly Detection & Alert Monitoring
 ######################################################
 # Author: Gireesh K. Bogu                            #
