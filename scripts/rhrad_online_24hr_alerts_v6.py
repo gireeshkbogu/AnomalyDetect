@@ -394,7 +394,7 @@ class RHRAD_online:
 
             with plt.style.context('fivethirtyeight'):
 
-                fig, ax = plt.subplots(1, figsize=(80,15))
+                fig, ax = plt.subplots(1, figsize=(20,3))
                
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
@@ -404,21 +404,21 @@ class RHRAD_online:
                     v = colors.get(test_alerts['alert_type'][i])
                     ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=4, color=v)
                 
-                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=100)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=14)
 
-                ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
-                ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
-                ax.set_title(myphd_id,fontweight="bold", size=50) # Title
-                ax.set_ylabel('Std. RHR\n', fontsize = 50) # Y label
-                ax.axvline(pd.to_datetime(symptom_date), color='grey', zorder=1, linestyle='--', marker="v" , markersize=22, lw=6) # Symptom date 
-                ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', marker="v" , markersize=22, lw=6) # Diagnosis date
-                ax.tick_params(axis='both', which='major', labelsize=60)
-                ax.tick_params(axis='both', which='minor', labelsize=60)
+                ax.tick_params(axis='both', which='major', color='blue', labelsize=14)
+                ax.tick_params(axis='both', which='minor', color='blue', labelsize=14)
+                ax.set_title(myphd_id,fontweight="bold", size=14) # Title
+                ax.set_ylabel('Std. RHR\n', fontsize = 14) # Y label
+                ax.axvline(pd.to_datetime(symptom_date), color='grey', zorder=1, linestyle='--',   lw=6) # Symptom date 
+                ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=6) # Diagnosis date
+                ax.tick_params(axis='both', which='major', labelsize=14)
+                ax.tick_params(axis='both', which='minor', labelsize=14)
                 ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
                 ax.grid(zorder=0)
                 ax.grid(True)
-                plt.xticks(fontsize=30, rotation=90)
-                plt.yticks(fontsize=50)
+                plt.xticks(fontsize=14, rotation=90)
+                plt.yticks(fontsize=14)
                 ax.patch.set_facecolor('white')
                 fig.patch.set_facecolor('white')   
                 figure = fig.savefig(myphd_id_figure1, bbox_inches='tight')                             
@@ -427,7 +427,7 @@ class RHRAD_online:
         except:
             with plt.style.context('fivethirtyeight'):
 
-                fig, ax = plt.subplots(1, figsize=(80,15))
+                fig, ax = plt.subplots(1, figsize=(20,3))
 
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
@@ -437,19 +437,19 @@ class RHRAD_online:
                     v = colors.get(test_alerts['alert_type'][i])
                     ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=4, color=v)
  
-                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=100)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=14)
 
-                ax.tick_params(axis='both', which='major', color='blue', labelsize=60)
-                ax.tick_params(axis='both', which='minor', color='blue', labelsize=60)
-                ax.set_title(myphd_id,fontweight="bold", size=50) # Title
-                ax.set_ylabel('Std. RHR\n', fontsize = 50) # Y label
-                ax.tick_params(axis='both', which='major', labelsize=60)
-                ax.tick_params(axis='both', which='minor', labelsize=60)
+                ax.tick_params(axis='both', which='major', color='blue', labelsize=14)
+                ax.tick_params(axis='both', which='minor', color='blue', labelsize=14)
+                ax.set_title(myphd_id,fontweight="bold", size=14) # Title
+                ax.set_ylabel('Std. RHR\n', fontsize = 14) # Y label
+                ax.tick_params(axis='both', which='major', labelsize=14)
+                ax.tick_params(axis='both', which='minor', labelsize=14)
                 ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
                 ax.grid(zorder=0)
                 ax.grid(True)
-                plt.xticks(fontsize=30, rotation=90)
-                plt.yticks(fontsize=50)
+                plt.xticks(fontsize=14, rotation=90)
+                plt.yticks(fontsize=14)
                 ax.patch.set_facecolor('white')
                 fig.patch.set_facecolor('white')     
                 figure = fig.savefig(myphd_id_figure1, bbox_inches='tight')       
