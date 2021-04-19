@@ -392,64 +392,76 @@ class RHRAD_online:
         """
         try:
 
-            with plt.style.context('fivethirtyeight'):
+            with plt.style.context('seaborn-dark-palette'):
 
-                fig, ax = plt.subplots(1, figsize=(20,3))
+                fig, ax = plt.subplots(1, figsize=(16,2.5))
                
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'lightgreen'}
+                training = data_train[0]
+                training = training.reset_index()
+                ax.bar(training['index'], training['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
+
+                print(training)
+
+                colors = {0:'', 'RED': 'red', 'YELLOW': 'orange', 'GREEN': ''}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
-                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=4, color=v)
+                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=3, color=v)
                 
-                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=14)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=12)
 
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=14)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=14)
-                ax.set_title(myphd_id,fontweight="bold", size=14) # Title
-                ax.set_ylabel('Std. RHR\n', fontsize = 14) # Y label
-                ax.axvline(pd.to_datetime(symptom_date), color='grey', zorder=1, linestyle='--',   lw=6) # Symptom date 
-                ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=6) # Diagnosis date
-                ax.tick_params(axis='both', which='major', labelsize=14)
-                ax.tick_params(axis='both', which='minor', labelsize=14)
-                ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
+                ax.set_title(myphd_id,fontweight="bold", size=12) # Title
+                ax.set_ylabel('Std. RHR\n', fontsize = 12) # Y label
+                ax.axvline(pd.to_datetime(symptom_date), color='#FF4500', zorder=1, linestyle='--',   lw=6) # Symptom date 
+                ax.axvline(pd.to_datetime(diagnosis_date), color='#AD4FE0',zorder=1, linestyle='--', lw=6) # Diagnosis date
+                ax.tick_params(axis='both', which='major', labelsize=12)
+                ax.tick_params(axis='both', which='minor', labelsize=12)
+                ax.xaxis.set_major_locator(mdates.DayLocator(interval=3))
                 ax.grid(zorder=0)
-                ax.grid(True)
-                plt.xticks(fontsize=14, rotation=90)
-                plt.yticks(fontsize=14)
+                ax.grid(False)
+                plt.xticks(fontsize=8, rotation=90)
+                plt.yticks(fontsize=10)
                 ax.patch.set_facecolor('white')
                 fig.patch.set_facecolor('white')   
                 figure = fig.savefig(myphd_id_figure1, bbox_inches='tight')                             
                 return figure
 
         except:
-            with plt.style.context('fivethirtyeight'):
+            with plt.style.context('seaborn-dark-palette'):
 
-                fig, ax = plt.subplots(1, figsize=(20,3))
+                fig, ax = plt.subplots(1, figsize=(16,2.5))
 
                 ax.bar(test_alerts['index'], test_alerts['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': 'lightgreen'}
+                training = data_train[0]
+                training = training.reset_index()
+                ax.bar(training['index'], training['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
+
+                print(training)
+
+                colors = {0:'', 'RED': 'red', 'YELLOW': 'orange', 'GREEN': ''}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
-                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=4, color=v)
+                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=3, color=v)
  
-                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=14)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=12)
 
-                ax.tick_params(axis='both', which='major', color='blue', labelsize=14)
-                ax.tick_params(axis='both', which='minor', color='blue', labelsize=14)
-                ax.set_title(myphd_id,fontweight="bold", size=14) # Title
-                ax.set_ylabel('Std. RHR\n', fontsize = 14) # Y label
-                ax.tick_params(axis='both', which='major', labelsize=14)
-                ax.tick_params(axis='both', which='minor', labelsize=14)
-                ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))
+                ax.tick_params(axis='both', which='major', color='blue', labelsize=12)
+                ax.tick_params(axis='both', which='minor', color='blue', labelsize=12)
+                ax.set_title(myphd_id,fontweight="bold", size=12) # Title
+                ax.set_ylabel('Std. RHR\n', fontsize = 12) # Y label
+                ax.tick_params(axis='both', which='major', labelsize=12)
+                ax.tick_params(axis='both', which='minor', labelsize=12)
+                ax.xaxis.set_major_locator(mdates.DayLocator(interval=3))
                 ax.grid(zorder=0)
-                ax.grid(True)
-                plt.xticks(fontsize=14, rotation=90)
-                plt.yticks(fontsize=14)
+                ax.grid(False)
+                plt.xticks(fontsize=8, rotation=90)
+                plt.yticks(fontsize=10)
                 ax.patch.set_facecolor('white')
                 fig.patch.set_facecolor('white')     
                 figure = fig.savefig(myphd_id_figure1, bbox_inches='tight')       
