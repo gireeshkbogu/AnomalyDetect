@@ -402,8 +402,6 @@ class RHRAD_online:
                 training = training.reset_index()
                 ax.bar(training['index'], training['heartrate'], linestyle='-', color='midnightblue', lw=6, width=0.01)
 
-                print(training)
-
                 colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
         
                 for i in range(len(test_alerts)):
