@@ -404,29 +404,38 @@ class RHRAD_online:
 
                 print(training)
 
-                colors = {0:'', 'RED': 'red', 'YELLOW': 'orange', 'GREEN': ''}
+                colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
-                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=3, color=v)
+                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='solid',  color=v)
                 
-                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=12)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=4)
+
 
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=14)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=14)
-                ax.set_title(myphd_id,fontweight="bold", size=12) # Title
+                #ax.set_title(myphd_id,fontweight="bold", size=12) # Title
                 ax.set_ylabel('Std. RHR\n', fontsize = 12) # Y label
-                ax.axvline(pd.to_datetime(symptom_date), color='#FF4500', zorder=1, linestyle='--',   lw=6) # Symptom date 
-                ax.axvline(pd.to_datetime(diagnosis_date), color='#AD4FE0',zorder=1, linestyle='--', lw=6) # Diagnosis date
+                #ax.axvline(pd.to_datetime(symptom_date), color='black', zorder=1, linestyle='--',   lw=6, alpha=0.5) # Symptom date 
+                #ax.axvline(pd.to_datetime(diagnosis_date), color='purple',zorder=1, linestyle='--', lw=6, alpha=0.5) # Diagnosis date
                 ax.tick_params(axis='both', which='major', labelsize=12)
                 ax.tick_params(axis='both', which='minor', labelsize=12)
                 ax.xaxis.set_major_locator(mdates.DayLocator(interval=3))
                 ax.grid(zorder=0)
                 ax.grid(False)
+
                 plt.xticks(fontsize=8, rotation=90)
                 plt.yticks(fontsize=10)
+
+                #plt.setp(ax.get_xticklabels() [0::2], visible=False) 
+                #plt.setp(ax.get_xticklabels() [-1::-2], visible=False)
+                #ax.set_xlim([datetime.date(2025, 2, 11), datetime.date(2025, 8, 28)])
+                #ax.axes.get_xaxis().set_visible(False) # set X axis labels false
+
                 ax.patch.set_facecolor('white')
-                fig.patch.set_facecolor('white')   
+                fig.patch.set_facecolor('white') 
+
                 figure = fig.savefig(myphd_id_figure1, bbox_inches='tight')                             
                 return figure
 
@@ -443,13 +452,13 @@ class RHRAD_online:
 
                 print(training)
 
-                colors = {0:'', 'RED': 'red', 'YELLOW': 'orange', 'GREEN': ''}
+                colors = {0:'', 'RED': 'red', 'YELLOW': 'yellow', 'GREEN': ''}
         
                 for i in range(len(test_alerts)):
                     v = colors.get(test_alerts['alert_type'][i])
-                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='dotted',  lw=3, color=v)
+                    ax.vlines(test_alerts['index'][i], test_alerts['heartrate'].min(), test_alerts['heartrate'].max(),  linestyle='solid',  lw=2, color=v)
  
-                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=12)
+                ax.scatter(positive_anomalies['datetime'],positive_anomalies['std.rhr'], color='red', label='Anomaly', s=4)
 
                 ax.tick_params(axis='both', which='major', color='blue', labelsize=12)
                 ax.tick_params(axis='both', which='minor', color='blue', labelsize=12)
