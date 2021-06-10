@@ -62,7 +62,8 @@ python rhrad_online_alerts.py --heart_rate pbb_fitbit_oldProtocol_hr.csv \
        --symptom_date 2020-01-10 --diagnosis_date 2020-01-11 \
        --outliers_fraction 0.1 \
        --random_seed 10  \
-       --baseline_window 744 --sliding_window 1 
+       --baseline_window 744 \
+       --sliding_window 1 \
        --alerts pbb_RHR_online_alerts.csv \
        --figure2 pbb_RHR_online_alerts.pdf
 ```
