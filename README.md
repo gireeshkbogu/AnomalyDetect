@@ -55,7 +55,7 @@ It uses RHR data and splits it into training data by taking the first 744 hours 
 Full command
 ```
 python rhrad_online_alerts.py --heart_rate pbb_fitbit_newProtocol_hr.csv \
-       --steps pbb_fitbit_nnewProtocol_steps.csv \
+       --steps pbb_fitbit_newProtocol_steps.csv \
        --myphd_id pbb_RHR_online \
        --figure1 pbb_RHR_online_anomalies.pdf \
        --anomalies pbb_RHR_online_anomalies.csv \
