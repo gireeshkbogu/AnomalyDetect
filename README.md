@@ -52,7 +52,7 @@ python hrosad_offline.py \
 
 It uses RHR data and splits it into training data by taking the first 744 hours as a baseline (1 month) and test data by taking the next 1 hour data, and uses a 1 hour sliding window to find anomalies in the test data in “real-time”. If the anomalies occur frequently within 24 hours, it will automatically create either warning (yellow) or serious (red) alerts at every 9 P.M. Red alerts were set if the anomalies occurred continuously for more than 5 hours within each 24 hours period and yellow alerts were set if the anomalies occurred for one or continuously for less than 5 hours and green alerts were set if there were no anomalies. 
 
-Note: uses a new Fitbit data format compared to offline models.
+Note: Uses a new Fitbit data format compared to offline models.
 
 Full command
 ```
