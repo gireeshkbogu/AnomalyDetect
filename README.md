@@ -54,16 +54,16 @@ It uses RHR data and splits it into training data by taking the first 744 hours 
 
 Full command
 ```
-python rhrad_online_alerts.py --heart_rate pbb_fitbit_newProtocol_hr.csv \
+python rhrad_online_alerts.py --heart_rate fitbit_newProtocol_hr.csv \
        --steps pbb_fitbit_newProtocol_steps.csv \
-       --myphd_id pbb_RHR_online \
-       --figure1 pbb_RHR_online_anomalies.pdf \
-       --anomalies pbb_RHR_online_anomalies.csv \
+       --myphd_id id_RHR_online \
+       --figure1 id_RHR_online_anomalies.pdf \
+       --anomalies id_RHR_online_anomalies.csv \
        --symptom_date 2020-01-10 --diagnosis_date 2020-01-11 \
        --outliers_fraction 0.1 \
        --random_seed 10  \
        --baseline_window 744 \
        --sliding_window 1 \
-       --alerts pbb_RHR_online_alerts.csv \
-       --figure2 pbb_RHR_online_alerts.pdf
+       --alerts id_RHR_online_alerts.csv \
+       --figure2 id_RHR_online_alerts.pdf
 ```
