@@ -26,7 +26,6 @@
 # --alerts pbb_RHR_online_alerts.csv \
 # --figure2 pbb_RHR_online_alerts.pdf
 
-
 import warnings
 warnings.filterwarnings('ignore')
 import sys 
